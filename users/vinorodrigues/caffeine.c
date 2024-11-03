@@ -3,7 +3,7 @@
 
 #include <quantum.h>
 #include <report.h>
-#include "common.h"
+#include "vinorodrigues_common.h"
 #include "caffeine.h"
 
 // needed for rand()
@@ -22,7 +22,7 @@ uint8_t caffeine_key_index = UINT8_MAX;
 
 #ifdef RGB_MATRIX_ENABLE
 
-uint8_t caffeine_color_loop = 0;
+RGB caffeine_color;
 bool blink_on = false;            // Blink LED timer buffer
 uint32_t timer_blink_buffer = 0;  // Blink LED timer buffer
 
@@ -46,6 +46,7 @@ void matrix_scan_caffeine(void) {
             timer_caffeine_buffer = sync_timer_read32(); // reset timer
             // --- tap a key ---
             tap_code(CAFFEINE_KEY_CODE);
+            #ifdef MOUSEKEY_ENABLE
             // --- jiggle the mouse ---
             uint8_t r = rand() % 4;  // randomize mouse moves
             switch (r) {
@@ -66,6 +67,7 @@ void matrix_scan_caffeine(void) {
                     tap_code(KC_MS_LEFT);
                     break;
             }
+            #endif // MOUSEKEY_ENABLE
         }
     }
 }
@@ -95,28 +97,23 @@ static void __caffeine_init(void) {
 }
 
 static void __caffeine_blink(void) {
+    RGB rgb = caffeine_color;
+
     if (caffeine_on && rgb_matrix_is_enabled()) {
         if (sync_timer_elapsed32(timer_blink_buffer) > CAFFEINE_BLINK_DELAY) {  // every second
             timer_blink_buffer = sync_timer_read32();  // reset timer
             blink_on = !blink_on;
             if (blink_on) {
-                if (caffeine_color_loop >= 4) caffeine_color_loop = 0;
-                ++caffeine_color_loop;
+                caffeine_color.r = get_random_number(128, 255);
+                caffeine_color.g = get_random_number(128, 255);
+                caffeine_color.b = get_random_number(128, 255);
+                rgb = adjust_to_brightness(caffeine_color.r, caffeine_color.g, caffeine_color.b, 64, 255);  // min: 64 is 255 / 4, or 1/4 bright
+                caffeine_color = rgb;
             }
         }
     }
 
     if (caffeine_init && (caffeine_key_index != UINT8_MAX) && blink_on) {
-        if (caffeine_color_loop >= 4) caffeine_color_loop = 0;
-        RGB rgb = {r: 0, g: 0, b: 0};
-        switch (caffeine_color_loop) {
-            case 1: rgb.r = 0xFF; break;
-            case 2: rgb.g = 0xFF; break;
-            case 3: rgb.b = 0xFF; break;
-            default: rgb.r = rgb.g = rgb.b = 0xFF; break;
-        }
-
-        rgb = adjust_to_brightness(rgb.r, rgb.g, rgb.b, 64, 255);  // 64 is 255 / 4, 1/4 bright
         rgb_matrix_set_color(caffeine_key_index, rgb.r, rgb.g, rgb.b);
     }
 }

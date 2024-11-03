@@ -1,12 +1,7 @@
 # Copyright 2023 Vino Rodrigues (@vinorodrigues)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# Enable Mouse Keys
-MOUSEKEY_ENABLE = no
-
-# ----- My stuff ------
-
-VPATH += $(QMK_USERSPACE)/users/vinorodrigues
+SRC += vinorodrigues_common.c
 
 ifeq ($(strip $(CAFFEINE_ENABLE)), yes)
     SRC += caffeine.c
