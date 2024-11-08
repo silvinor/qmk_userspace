@@ -16,7 +16,7 @@ enum {
 };
 
 enum {
-    KB_VERSION = QK_KB_9
+    KB_VERSION = QK_KB_19
 };
 
 #define KB_VRSN KB_VERSION

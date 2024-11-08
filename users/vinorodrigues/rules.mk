@@ -12,3 +12,8 @@ ifeq ($(strip $(KONAMI_ENABLE)), yes)
     SRC += konami.c
     OPT_DEFS += -DKONAMI_ENABLE
 endif
+
+ifeq ($(strip $(SOCD_CLEANER_ENABLE)), yes)
+    SRC += socd_cleaner.c
+    OPT_DEFS += -DSOCD_CLEANER_ENABLE
+endif

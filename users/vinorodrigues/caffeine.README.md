@@ -54,7 +54,9 @@ bool rgb_matrix_indicators_user(void) {
 }
 ```
 
-#### `led_update_user`
+#### ~~`led_update_user`~~
+
+***[REMOVED!]*** <!-- FIXME : DOcs -->
 
 ```c
 bool led_update_user(led_t led_state) {

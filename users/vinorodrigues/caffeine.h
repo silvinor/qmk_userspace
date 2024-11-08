@@ -8,10 +8,15 @@ void housekeeping_task_caffeine(void);
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_caffeine(void);
-bool led_update_caffeine(led_t led_state);
 #endif  // RGB_MATRIX_ENABLE
+
+#ifdef LED_CAFFIENE_PIN
+void led_init_ports_caffeine(void);
+#endif // LED_CAFFIENE_PIN
 
 // void keyboard_post_init_caffeine(void);
 // void eeconfig_init_caffeine(void);
 
+bool caffeine_process_on_keycode(keyrecord_t *record);
+bool caffeine_process_off_keycode(keyrecord_t *record);
 bool caffeine_process_toggle_keycode(keyrecord_t *record);

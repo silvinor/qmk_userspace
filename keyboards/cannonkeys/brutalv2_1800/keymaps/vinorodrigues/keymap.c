@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "version.h"
+#include <version.h>
+#include "vinorodrigues_common.h"
 
 enum layer_names {
     _BASE,
@@ -13,12 +14,12 @@ enum layer_names {
 };
 
 enum {
-    KC_VERSION = QK_KB_0,
-    KC_SIRI,
+    KC_SIRI = QK_KB_2,
     KC_SCREEN_SHOT,
     KC_TASK_VIEW,
     KC_FILE_EXPLORER,
-    KC_CORTANA
+    KC_CORTANA,
+    KC_VERSION = QK_KB_10
 };
 
 #define KC_VRSN KC_VERSION
@@ -75,48 +76,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-static bool __register_code_2(keyrecord_t *record, uint16_t data1, uint16_t data2) {
-    if (record->event.pressed) {
-        register_code(data1);
-        register_code(data2);
-    } else {
-        unregister_code(data2);
-        unregister_code(data1);
-    }
-    return false;  // Skip all further processing of this key
-}
-
-static bool __register_code_3(keyrecord_t *record, uint16_t data1, uint16_t data2, uint16_t data3) {
-    if (record->event.pressed) {
-        register_code(data1);
-        register_code(data2);
-        register_code(data3);
-    } else {
-        unregister_code(data3);
-        unregister_code(data2);
-        unregister_code(data1);
-    }
-    return false;  // Skip all further processing of this key
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+
+        // ----- macOS -----
+
+        case QK_KB_0: // legacy, for Vial builds
+            if (record->event.pressed) {
+                register_code(KC_MISSION_CONTROL);
+            } else {
+                unregister_code(KC_MISSION_CONTROL);
+            }
+            return false;
+
+        case QK_KB_1: // legacy, for Vial builds
+            if (record->event.pressed) {
+                register_code(KC_LAUNCHPAD);
+            } else {
+                unregister_code(KC_LAUNCHPAD);
+            }
+            return false;
+
+        case KC_SIRI:
+            return kc_register_code_2(record, KC_LOPT, KC_SPACE);
+            break;
+
+        case KC_SCREEN_SHOT:
+            return kc_register_code_3(record, KC_LSFT, KC_LCMD, KC_4);
+            break;
+
+        // ----- Windows ------
+
+        case KC_TASK_VIEW:
+            return kc_register_code_2(record, KC_LWIN, KC_TAB);
+            break;
+
+        case KC_FILE_EXPLORER:
+            return kc_register_code_2(record, KC_LWIN, KC_E);
+            break;
+
+        case KC_CORTANA:
+            return kc_register_code_2(record, KC_LWIN, KC_C);
+            break;
+
+        // ------ Other ------
+
         case KC_VERSION:
             if (record->event.pressed) {
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
             }
             break;
 
-        // macOS
-        case KC_SIRI: return __register_code_2(record, KC_LOPT, KC_SPACE); break;
-        case KC_SCREEN_SHOT: return __register_code_3(record, KC_LSFT, KC_LCMD, KC_4); break;
-
-        // Windows
-        case KC_TASK_VIEW: return __register_code_2(record, KC_LWIN, KC_TAB); break;
-        case KC_FILE_EXPLORER: return __register_code_2(record, KC_LWIN, KC_E); break;
-        case KC_CORTANA: return __register_code_2(record, KC_LWIN, KC_C); break;
-
-        default: break;
+        default:
+            break;
     }
     return true;
 }

@@ -13,3 +13,10 @@ LTO_ENABLE = yes
 
 CAFFEINE_ENABLE = yes
 KONAMI_ENABLE = yes
+SOCD_CLEANER_ENABLE = yes
+
+## --- Debug ---
+# CONSOLE_ENABLE = yes
+# NKRO_ENABLE = no
+# EXTRAKEY_ENABLE = no
+# OPT_DEFS += -DDEBUG
