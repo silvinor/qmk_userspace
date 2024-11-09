@@ -13,7 +13,7 @@ static void konami_code_handler(void) {
 
 bool process_record_konami_code(uint16_t keycode, keyrecord_t *record) {
     static uint8_t        konami_index          = 0;
-    static const uint16_t konami_code[] PROGMEM = {KC_UP, KC_UP, KC_DOWN, KC_DOWN, KC_LEFT, KC_RIGHT, KC_LEFT, KC_RIGHT, KC_B, KC_A, KC_ENTER};
+    static const uint16_t konami_code[] PROGMEM = {KC_UP, KC_UP, KC_DOWN, KC_DOWN, KC_LEFT, KC_RIGHT, KC_LEFT, KC_RIGHT, KC_B, KC_A /*, KC_ENTER */ };
 
     if (!record->event.pressed) {
         switch (keycode) {
@@ -33,18 +33,18 @@ bool process_record_konami_code(uint16_t keycode, keyrecord_t *record) {
             case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
                 return process_record_konami_code(QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode), record);
                 break;
-            case KC_KP_ENTER:
-            case KC_RETURN:
-            case QK_SPACE_CADET_RIGHT_SHIFT_ENTER:
-                return process_record_konami_code(KC_ENTER, record);
-                break;
+            // case KC_KP_ENTER:
+            // case KC_RETURN:
+            // case QK_SPACE_CADET_RIGHT_SHIFT_ENTER:
+            //     return process_record_konami_code(KC_ENTER, record);
+            //     break;
             case KC_UP:
             case KC_DOWN:
             case KC_LEFT:
             case KC_RIGHT:
             case KC_B:
             case KC_A:
-            case KC_ENTER:
+            // case KC_ENTER:
                 if (keycode == pgm_read_word(&konami_code[konami_index])) {
                     // next key in sequence
                     konami_index++;
