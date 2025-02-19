@@ -21,7 +21,7 @@ uint32_t timer_caffeine_buffer = 0; // No Screen Saver timer buffer
 
 #ifdef RGB_MATRIX_ENABLE
 uint8_t caffeine_key_index = UINT8_MAX;
-RGB caffeine_color;
+rgb_t caffeine_color;
 bool is_blink_rgb_on = false;           // Blink LED timer buffer
 uint32_t timer_blink_rgb_buffer = 0; // Blink LED timer buffer
 #endif // RGB_MATRIX_ENABLE
@@ -150,7 +150,7 @@ static void __caffeine_init(void) {
 #ifdef RGB_MATRIX_ENABLE
 
 static void __caffeine_blink_rgb(void) {
-    RGB rgb = caffeine_color;
+    rgb_t rgb = caffeine_color;
 
     if (is_caffeine_on && rgb_matrix_is_enabled()) {
         if (sync_timer_elapsed32(timer_blink_rgb_buffer) > CAFFEINE_RGB_BLINK_DELAY) {  // every second

@@ -222,7 +222,7 @@ void housekeeping_task_user(void) {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        RGB red = adjust_to_brightness(RGB_RED, 64, RGB_MATRIX_MAXIMUM_BRIGHTNESS);
+        rgb_t red = adjust_to_brightness(RGB_RED, 64, RGB_MATRIX_MAXIMUM_BRIGHTNESS);
         for (uint8_t i = led_min; i < led_max; i++) {
             if (g_led_config.flags[i] & 0x10) {
                 rgb_matrix_set_color(i, red.r, red.g, red.b);

@@ -24,3 +24,6 @@
 /* bigger wear leveling buffer */
 #define WEAR_LEVELING_LOGICAL_SIZE 4096
 #define WEAR_LEVELING_BACKING_SIZE 8192
+
+/* Some new & add-on features not technically needed */
+#define SERIAL_NUMBER_USE_HARDWARE_ID true
