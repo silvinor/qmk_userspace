@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Vino Rodrigues (@vinorodrigues)
+// Copyright 2023-2024 Silvino R. (@silvinor)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <quantum.h>
@@ -9,7 +9,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include <color.h>
 #endif // RGB_MATRIX_ENABLE
-#include "vinorodrigues_common.h"
+#include "silvinor_common.h"
 
 bool is_randomized = false;
 

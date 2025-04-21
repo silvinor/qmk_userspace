@@ -1,4 +1,4 @@
-/* (c) 2024 Vino Rodrigues */
+/* (c) 2024 Silvino R. */
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 
 #include QMK_KEYBOARD_H
@@ -9,7 +9,7 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif // RGB_MATRIX_ENABLE
-#include "vinorodrigues_common.h"
+#include "silvinor_common.h"
 #ifdef CAFFEINE_ENABLE
 #    include "caffeine.h"
 #endif // CAFFEINE_ENABLE

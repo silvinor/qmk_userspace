@@ -1,9 +1,9 @@
-// Copyright 2023 Vino Rodrigues (@vinorodrigues)
+// Copyright 2023 Silvino R. (@silvinor)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 #include <version.h>
-#include "vinorodrigues_common.h"
+#include "silvinor_common.h"
 
 enum layer_names {
     _BASE,

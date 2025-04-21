@@ -1,4 +1,4 @@
-/* (c) 2024 Vino Rodrigues */
+/* (c) 2024 Silvino R. */
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 
 #pragma once

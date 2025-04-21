@@ -1,7 +1,7 @@
-# Copyright 2023 Vino Rodrigues (@vinorodrigues)
+# Copyright 2023 Silvino R. (@silvinor)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-SRC += vinorodrigues_common.c
+SRC += silvinor_common.c
 
 ifeq ($(strip $(CAFFEINE_ENABLE)), yes)
     SRC += caffeine.c

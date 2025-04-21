@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Vino Rodrigues (@vinorodrigues)
+// Copyright 2023-2024 Silvino R. (@silvinor)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #pragma once

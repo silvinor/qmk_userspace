@@ -1,4 +1,4 @@
-// Copyright 2022 Vino Rodrigues (@vinorodrigues)
+// Copyright 2022 Silvino R. (@silvinor)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*

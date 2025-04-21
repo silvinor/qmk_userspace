@@ -7,7 +7,7 @@
 ```make
 CAFFEINE_ENABLE = yes
 
-# VPATH += $(QMK_USERSPACE)/users/vinorodrigues
+# VPATH += $(QMK_USERSPACE)/users/silvinor
 
 ifeq ($(strip $(CAFFEINE_ENABLE)), yes)
     SRC += caffeine.c
