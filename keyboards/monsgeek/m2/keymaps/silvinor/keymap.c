@@ -1,6 +1,8 @@
 /* (c) 2024 Silvino R. */
 /* SPDX-License-Identifier: GPL-3.0-or-later */
 
+#error "This file keymap has not been ported to QMK Modukes" // FIXME : Remove once ported
+
 #include QMK_KEYBOARD_H
 #ifdef CONSOLE_ENABLE
 #    include "print.h"
@@ -9,16 +11,16 @@
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif // RGB_MATRIX_ENABLE
-#include "silvinor_common.h"
-#ifdef CAFFEINE_ENABLE
-#    include "caffeine.h"
-#endif // CAFFEINE_ENABLE
-#ifdef KONAMI_ENABLE
-#    include "konami.h"
-#endif // KONAMI_ENABLE
-#ifdef SOCD_CLEANER_ENABLE
-#    include "socd_cleaner.h"
-#endif
+// #include     "silvinor_common.h"
+// #ifdef CAFFEINE_ENABLE
+// #    include "caffeine.h"
+// #endif // CAFFEINE_ENABLE
+// #ifdef KONAMI_ENABLE
+// #    include "konami.h"
+// #endif // KONAMI_ENABLE
+// #ifdef SOCD_CLEANER_ENABLE
+// #    include "socd_cleaner.h"
+// #endif
 
 enum {
     KC_SIRI = QK_KB_2,

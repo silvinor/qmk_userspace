@@ -5,6 +5,8 @@
  * IDOBAO ID67 Keymap for a ID67 Bestype, built for Mac use
  */
 
+ #error "This file keymap has not been ported to QMK Modukes" // FIXME : Remove once ported
+
 #include QMK_KEYBOARD_H
 #include "version.h"
 
