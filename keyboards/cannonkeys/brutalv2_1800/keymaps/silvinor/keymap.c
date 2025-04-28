@@ -2,15 +2,17 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "common.h" // form `silvinor/common`
 
-#ifdef COMMUNITY_MODULE_CAFFEINE_ENABLE
-#    include "caffeine.h"
+#ifdef COMMUNITY_MODULE_SR_COMMON_ENABLE
+#    include "sr_common.h"
 #endif
 
-#ifdef COMMUNITY_MODULE_VERSION_ENABLE
-// forward prototype because there is no `version.h` (in the module, that is)
-bool process_record_version(uint16_t keycode, keyrecord_t *record);
+#ifdef COMMUNITY_MODULE_SR_CAFFEINE_ENABLE
+#    include "sr_caffeine.h"
+#endif
+
+#ifdef COMMUNITY_MODULE_SR_VERSION_ENABLE
+#    include "sr_version.h"
 #endif
 
 #ifdef COMMUNITY_MODULE_GLOBE_KEY_ENABLE
@@ -68,6 +70,7 @@ const matrix_row_t matrix_mask[] = {
 // clang-format on
 #endif
 
+// ---------------------------------------------------------------------------
 void led_init_ports(void) {
     // TODO : Have not figured out the PWM functions yet, not all RP API is ported to QMK
 
@@ -93,6 +96,7 @@ void led_init_ports(void) {
     }
 }
 
+// ---------------------------------------------------------------------------
 //// void led_update_ports(led_t led_state) {
 bool led_update_user(led_t led_state) {
 #ifdef PWM_CAPS_LOCK_PIN
@@ -105,9 +109,12 @@ bool led_update_user(led_t led_state) {
     gpio_write_pin(PWM_NUM_LOCK_PIN, is_num_lock ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
 #endif
 
+    led_update_caffeine(led_state);
+
     return false; // false = override the keyboard level code
 }
 
+//// ---------------------------------------------------------------------------
 // #ifdef FAKE_VIA_PROTOCOL_VERSION
 // bool via_command_kb(uint8_t *data, uint8_t length) {
 //     uint8_t *command_id   = &(data[0]);
@@ -124,29 +131,47 @@ bool led_update_user(led_t led_state) {
 // }
 // #endif
 
+// ---------------------------------------------------------------------------
+#ifdef COMMUNITY_MODULE_SR_CAFFEINE_ENABLE
+void matrix_scan_user(void) {
+    matrix_scan_caffeine();
+}
+#endif
+
+// ---------------------------------------------------------------------------
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
             // ----- macOS -----
 
         case CK_MISSION_CONTROL: // legacy, for Vial builds
+            // if (record->event.pressed) {
+            //     register_code(KC_MISSION_CONTROL);
+            // } else {
+            //     unregister_code(KC_MISSION_CONTROL);
+            // }
             if (record->event.pressed) {
-                register_code(KC_MISSION_CONTROL);
+                host_consumer_send(AC_DESKTOP_SHOW_ALL_WINDOWS);
             } else {
-                unregister_code(KC_MISSION_CONTROL);
+                host_consumer_send(0);
             }
             return false;
             break;
 
         case CK_LAUNCHPAD: // legacy, for Vial builds
+            // if (record->event.pressed) {
+            //     register_code(KC_LAUNCHPAD);
+            // } else {
+            //     unregister_code(KC_LAUNCHPAD);
+            // }
             if (record->event.pressed) {
-                register_code(KC_LAUNCHPAD);
+                host_consumer_send(AC_SOFT_KEY_LEFT);
             } else {
-                unregister_code(KC_LAUNCHPAD);
+                host_consumer_send(0);
             }
             return false;
             break;
 
-#ifdef COMMUNITY_MODULE_COMMON_ENABLE
+#ifdef COMMUNITY_MODULE_SR_COMMON_ENABLE
         case CK_SIRI:
             return kc_register_code_2(record, KC_LOPT, KC_SPACE);
             break;
@@ -154,8 +179,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef COMMUNITY_MODULE_GLOBE_KEY_ENABLE
         case CK_GLOBE_KEY:
-            // return process_record_globe_key(KC_GLOBE, record); // FIXME : Why does this not work??
-
+            // return process_record_globe_key(KC_GLOBE, record);
             if (record->event.pressed) {
                 host_consumer_send(AC_NEXT_KEYBOARD_LAYOUT_SELECT);
             } else {
@@ -166,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 #endif
 
-#ifdef COMMUNITY_MODULE_COMMON_ENABLE
+#ifdef COMMUNITY_MODULE_SR_COMMON_ENABLE
         case CK_SCREEN_SHOT:
             return kc_register_code_3(record, KC_LSFT, KC_LCMD, KC_4);
             break;
@@ -174,7 +198,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             // ----- Windows ------
 
-#ifdef COMMUNITY_MODULE_COMMON_ENABLE
+#ifdef COMMUNITY_MODULE_SR_COMMON_ENABLE
 
         case CK_TASK_VIEW:
             return kc_register_code_2(record, KC_LWIN, KC_TAB);
@@ -188,17 +212,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return kc_register_code_2(record, KC_LWIN, KC_C);
             break;
 
-#endif // COMMUNITY_MODULE_COMMON_ENABLE
+#endif // COMMUNITY_MODULE_SR_COMMON_ENABLE
 
             // ------ Other ------
 
-#ifdef COMMUNITY_MODULE_CAFFEINE_ENABLE
+#ifdef COMMUNITY_MODULE_SR_CAFFEINE_ENABLE
         case CK_CAFFEINE:
             return process_keycode_caffeine_toggle(record);
             break;
 #endif
 
-#ifdef COMMUNITY_MODULE_VERSION_ENABLE
+#ifdef COMMUNITY_MODULE_SR_VERSION_ENABLE
         case CK_VERSION:
             return process_record_version(COMMUNITY_MODULE_SEND_VERSION, record);
             break;
