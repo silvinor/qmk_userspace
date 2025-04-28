@@ -11,10 +11,6 @@ VIALRGB_ENABLE = yes
 LTO_ENABLE = yes
 # VIAL_INSECURE = yes
 
-CAFFEINE_ENABLE = yes
-KONAMI_ENABLE = yes
-SOCD_CLEANER_ENABLE = yes
-
 ## --- Debug ---
 # CONSOLE_ENABLE = yes
 # NKRO_ENABLE = no

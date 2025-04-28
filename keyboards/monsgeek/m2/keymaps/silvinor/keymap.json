@@ -1,0 +1,6 @@
+{
+    "modules": [
+        "silvinor/sr_common",
+        "silvinor/sr_caffeine"
+    ]
+}
