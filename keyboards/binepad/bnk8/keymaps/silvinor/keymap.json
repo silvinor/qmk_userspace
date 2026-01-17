@@ -16,14 +16,13 @@
             "0x7703",  "0x7704",  "MO(1)"
         ],
         [
-            "RGB_HUI", "RGB_SAI", "RGB_SPI",
-            "RGB_HUD", "RGB_SAD", "RGB_SPD",
-            "RGB_TOG", "RGB_MOD", "KC_TRNS"
-        ]
+            "RM_HUEU", "RM_SATU", "RM_SPDU",
+            "RM_HUED", "RM_SATD", "RM_SPDD",
+            "RM_TOGG", "RM_NEXT", "_______"        ]
     ],
     "encoders": [
         [{ "ccw": "KC_VOLD", "cw": "KC_VOLU" }],
-        [{ "ccw": "RGB_VAD", "cw": "RGB_VAI" }]
+        [{ "ccw": "RM_VALD", "cw": "RM_VALU" }]
     ],
     "modules": [
         "silvinor/sr_common",
