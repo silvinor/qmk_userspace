@@ -10,6 +10,9 @@
 #    include "progmem.h"
 #    include "eeprom.h"
 #    include "bnk8.h"
+#    include "nvm_eeprom_eeconfig_internal.h"
+#    include "nvm_eeprom_via_internal.h"
+
 
 // clang-format off
 #    define RGB_PER_KEY_DEFAULT_COLOR \
