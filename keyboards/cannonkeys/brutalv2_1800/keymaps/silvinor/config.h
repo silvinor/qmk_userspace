@@ -3,6 +3,13 @@
 
 #pragma once
 
+#ifdef FORCE_NKRO
+#    undef FORCE_NKRO
+#endif
+#ifdef NKRO_ENABLE
+#    undef NKRO_ENABLE
+#endif
+
 /* VIA keymap layers */
 
 #ifdef DYNAMIC_KEYMAP_LAYER_COUNT
@@ -38,4 +45,8 @@
 #define LED_CAFFEINE_PIN PWM_CAPS_LOCK_PIN
 #define LED_CAFFEINE_SHARED
 
-// #define FAKE_VIA_PROTOCOL_VERSION 0x000D // 13!
+/* Vial stuff */
+
+// #define VIAL_KEYBOARD_UID {0x37, 0xF9, 0x90, 0xEC, 0x99, 0xE6, 0x0A, 0x16}
+// #define VIAL_UNLOCK_COMBO_ROWS {0, 3}
+// #define VIAL_UNLOCK_COMBO_COLS {0, 13}

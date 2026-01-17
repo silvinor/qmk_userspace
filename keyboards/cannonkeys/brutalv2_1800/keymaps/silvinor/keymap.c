@@ -109,32 +109,15 @@ bool led_update_user(led_t led_state) {
     gpio_write_pin(PWM_NUM_LOCK_PIN, is_num_lock ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
 #endif
 
-    led_update_caffeine(led_state);
+    led_update_sr_caffeine(led_state);
 
     return false; // false = override the keyboard level code
 }
 
-//// ---------------------------------------------------------------------------
-// #ifdef FAKE_VIA_PROTOCOL_VERSION
-// bool via_command_kb(uint8_t *data, uint8_t length) {
-//     uint8_t *command_id   = &(data[0]);
-//     uint8_t *command_data = &(data[1]);
-//     switch (*command_id) {
-//         // override default get version
-//         case id_get_protocol_version:
-//             command_data[0] = FAKE_VIA_PROTOCOL_VERSION >> 8;
-//             command_data[1] = FAKE_VIA_PROTOCOL_VERSION & 0xFF;
-//             return true; // override default handler
-//             break;
-//     }
-//     return false;
-// }
-// #endif
-
 // ---------------------------------------------------------------------------
 #ifdef COMMUNITY_MODULE_SR_CAFFEINE_ENABLE
 void matrix_scan_user(void) {
-    matrix_scan_caffeine();
+    matrix_scan_sr_caffeine();
 }
 #endif
 
@@ -143,7 +126,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
             // ----- macOS -----
 
-        case CK_MISSION_CONTROL: // legacy, for Vial builds
+        case CK_MISSION_CONTROL: // legacy, for Via/Vial builds
             // if (record->event.pressed) {
             //     register_code(KC_MISSION_CONTROL);
             // } else {
@@ -157,7 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 
-        case CK_LAUNCHPAD: // legacy, for Vial builds
+        case CK_LAUNCHPAD: // legacy, for Via/Vial builds
             // if (record->event.pressed) {
             //     register_code(KC_LAUNCHPAD);
             // } else {
@@ -179,14 +162,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef COMMUNITY_MODULE_GLOBE_KEY_ENABLE
         case CK_GLOBE_KEY:
-            // return process_record_globe_key(KC_GLOBE, record);
-            if (record->event.pressed) {
-                host_consumer_send(AC_NEXT_KEYBOARD_LAYOUT_SELECT);
-            } else {
-                host_consumer_send(0);
-            }
+            return process_record_globe_key(KC_GLOBE, record);
+            // if (record->event.pressed) {
+            //     host_consumer_send(AC_NEXT_KEYBOARD_LAYOUT_SELECT);
+            // } else {
+            //     host_consumer_send(0);
+            // }
             return false;
-
             break;
 #endif
 
@@ -218,13 +200,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef COMMUNITY_MODULE_SR_CAFFEINE_ENABLE
         case CK_CAFFEINE:
-            return process_keycode_caffeine_toggle(record);
+            return process_keycode_sr_caffeine_toggle(record);
             break;
 #endif
 
 #ifdef COMMUNITY_MODULE_SR_VERSION_ENABLE
         case CK_VERSION:
-            return process_record_version(COMMUNITY_MODULE_SEND_VERSION, record);
+            return process_record_sr_version(COMMUNITY_MODULE_SEND_VERSION, record);
             break;
 #endif
 
