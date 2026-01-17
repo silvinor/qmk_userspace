@@ -202,7 +202,7 @@ bool led_update_user(led_t led_state) {
     // --- Caffeine ---
 
     // #ifdef CAFFEINE_ENABLE
-    // if (!led_update_caffeine(led_state, true, false)) return false;
+    // if (!led_update_sr_caffeine(led_state, true, false)) return false;
     // #endif // CAFFEINE_ENABLE
 
     return false; // don't allow default to run
@@ -212,7 +212,7 @@ bool led_update_user(led_t led_state) {
 
 void matrix_scan_user(void) {
 #    ifdef CAFFEINE_ENABLE
-    matrix_scan_caffeine();
+    matrix_scan_sr_caffeine();
 #    endif // CAFFEINE_ENABLE
 }
 
