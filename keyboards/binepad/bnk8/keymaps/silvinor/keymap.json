@@ -1,0 +1,34 @@
+{
+    "keyboard": "binepad/bnk8",
+    "keymap": "silvinor",
+    "layout": "LAYOUT_ortho_3x3",
+    "config": {
+        "features": {
+            "nkro": false,
+            "via": true,
+            "encoder_map": true
+        }
+    },
+    "layers": [
+        [
+            "KC_ESC",  "QK_KB_0", "KC_MUTE",
+            "0x7700",  "0x7701",  "0x7702",
+            "0x7703",  "0x7704",  "MO(1)"
+        ],
+        [
+            "RGB_HUI", "RGB_SAI", "RGB_SPI",
+            "RGB_HUD", "RGB_SAD", "RGB_SPD",
+            "RGB_TOG", "RGB_MOD", "KC_TRNS"
+        ]
+    ],
+    "encoders": [
+        [{ "ccw": "KC_VOLD", "cw": "KC_VOLU" }],
+        [{ "ccw": "RGB_VAD", "cw": "RGB_VAI" }]
+    ],
+    "modules": [
+        "silvinor/sr_common",
+        "silvinor/sr_version",
+        "silvinor/sr_caffeine",
+        "tzarc/globe_key"
+    ]
+}
